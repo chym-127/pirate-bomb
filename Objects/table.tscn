@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://nbu30tw20q6d"]
+
+[ext_resource type="Script" path="res://Objects/obj.gd" id="1_yncsg"]
+[ext_resource type="Texture2D" uid="uid://bh0qx32kinppn" path="res://Objects/12-Other Objects/Table.png" id="2_kfaf2"]
+[ext_resource type="PackedScene" uid="uid://fphh8johu42l" path="res://Objects/obj_hurt_box.tscn" id="3_p0v0k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_msey6"]
+size = Vector2(79, 10)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rhx6w"]
+radius = 2.0
+height = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_th01k"]
+radius = 2.0
+height = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_88f11"]
+size = Vector2(80, 32)
+
+[node name="Table" type="RigidBody2D"]
+position = Vector2(248, 559)
+collision_layer = 128
+collision_mask = 129
+mass = 2.0
+script = ExtResource("1_yncsg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kfaf2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_msey6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-24, 5)
+shape = SubResource("CapsuleShape2D_rhx6w")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(24, 5)
+shape = SubResource("CapsuleShape2D_th01k")
+
+[node name="ObjHurtBox" parent="." instance=ExtResource("3_p0v0k")]
+
+[node name="CollisionShape2D" parent="ObjHurtBox" index="0"]
+shape = SubResource("RectangleShape2D_88f11")
+
+[editable path="ObjHurtBox"]

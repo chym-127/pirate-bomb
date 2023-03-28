@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6gjy0cvlkjhg"]
+
+[ext_resource type="Texture2D" uid="uid://cci261atfvrsr" path="res://Objects/12-Other Objects/Chair.png" id="1_lu2ts"]
+[ext_resource type="PackedScene" uid="uid://fphh8johu42l" path="res://Objects/obj_hurt_box.tscn" id="2_jmd3l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek5jw"]
+size = Vector2(7, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpwpt"]
+size = Vector2(6, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ae1me"]
+size = Vector2(25, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1k13u"]
+size = Vector2(19, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n20uv"]
+size = Vector2(32, 55)
+
+[node name="Chair" type="RigidBody2D"]
+position = Vector2(324, 548)
+collision_layer = 128
+collision_mask = 129
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_lu2ts")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-12.5, 0.5)
+shape = SubResource("RectangleShape2D_ek5jw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(13, 17.5)
+shape = SubResource("RectangleShape2D_bpwpt")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(3.5, 4.5)
+shape = SubResource("RectangleShape2D_ae1me")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 22.5)
+shape = SubResource("RectangleShape2D_1k13u")
+
+[node name="ObjHurtBox" parent="." instance=ExtResource("2_jmd3l")]
+
+[node name="CollisionShape2D" parent="ObjHurtBox" index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_n20uv")
+
+[editable path="ObjHurtBox"]

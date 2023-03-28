@@ -1,0 +1,160 @@
+[gd_scene load_steps=11 format=3 uid="uid://do20pwll0otog"]
+
+[ext_resource type="Texture2D" uid="uid://cb075qrp1pf53" path="res://Bomb/sprite.png" id="1_i17ya"]
+[ext_resource type="Script" path="res://Bomb/bomb.gd" id="1_m7yav"]
+[ext_resource type="PackedScene" uid="uid://13a4v0a0gkvb" path="res://Common/hit_box.tscn" id="3_3inwy"]
+[ext_resource type="PackedScene" uid="uid://c78de7vermw86" path="res://Common/hurt_box.tscn" id="3_uvbkw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_04efs"]
+radius = 16.0078
+
+[sub_resource type="Animation" id="Animation_y7ieh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtBox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_pqais"]
+resource_name = "boom"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtBox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_boom"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bllav"]
+_data = {
+"RESET": SubResource("Animation_y7ieh"),
+"boom": SubResource("Animation_pqais")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uxqbw"]
+radius = 38.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mp7ko"]
+radius = 16.0
+
+[node name="Bomb" type="CharacterBody2D"]
+position = Vector2(320, 432)
+collision_layer = 4
+script = ExtResource("1_m7yav")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i17ya")
+hframes = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, 18.5)
+shape = SubResource("CircleShape2D_04efs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "boom"
+libraries = {
+"": SubResource("AnimationLibrary_bllav")
+}
+
+[node name="HitBox" parent="." instance=ExtResource("3_3inwy")]
+visible = false
+position = Vector2(1, 9)
+collision_layer = 8
+collision_mask = 5136
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CircleShape2D_uxqbw")
+disabled = true
+
+[node name="HurtBox" parent="." instance=ExtResource("3_uvbkw")]
+visible = false
+position = Vector2(1, 18)
+collision_layer = 1024
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_mp7ko")
+disabled = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+
+[editable path="HitBox"]
+[editable path="HurtBox"]

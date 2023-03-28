@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bg60q3xegdehx"]
+
+[ext_resource type="Shader" path="res://Effects/Shaders/blink-effect.gdshader" id="1_a73gh"]
+
+[resource]
+shader = ExtResource("1_a73gh")
+shader_parameter/active = false

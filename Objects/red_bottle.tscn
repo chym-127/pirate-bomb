@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnj25yjroidxh"]
+
+[ext_resource type="Texture2D" uid="uid://dsrheauc8x8e8" path="res://Objects/12-Other Objects/Red Bottle.png" id="1_p7cy7"]
+[ext_resource type="PackedScene" uid="uid://fphh8johu42l" path="res://Objects/obj_hurt_box.tscn" id="2_ops1h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q5bwg"]
+size = Vector2(11, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mxm5t"]
+size = Vector2(7, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4do5p"]
+size = Vector2(13, 30)
+
+[node name="RedBottle" type="RigidBody2D"]
+position = Vector2(412, 375)
+collision_layer = 128
+collision_mask = 161
+mass = 0.7
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_p7cy7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 5.5)
+shape = SubResource("RectangleShape2D_q5bwg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -9.5)
+shape = SubResource("RectangleShape2D_mxm5t")
+
+[node name="ObjHurtBox" parent="." instance=ExtResource("2_ops1h")]
+
+[node name="CollisionShape2D" parent="ObjHurtBox" index="0"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_4do5p")
+
+[editable path="ObjHurtBox"]

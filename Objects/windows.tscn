@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdo11wxod5jr0"]
+
+[ext_resource type="Texture2D" uid="uid://ccky7donteby7" path="res://Objects/12-Other Objects/Windows.png" id="1_kkvfl"]
+[ext_resource type="Texture2D" uid="uid://cg8nd8hwk2uf3" path="res://Objects/8-Window Light/WindowLight.png" id="2_0ahdh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ubyt8"]
+radius = 31.0
+height = 62.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuuqa"]
+atlas = ExtResource("2_0ahdh")
+region = Rect2(0, 0, 170, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxtue"]
+atlas = ExtResource("2_0ahdh")
+region = Rect2(170, 0, 170, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jiug"]
+atlas = ExtResource("2_0ahdh")
+region = Rect2(340, 0, 170, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hn45m"]
+atlas = ExtResource("2_0ahdh")
+region = Rect2(510, 0, 170, 139)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b1dxl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuuqa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxtue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jiug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hn45m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Windows" type="StaticBody2D"]
+position = Vector2(632, 135)
+collision_layer = 128
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kkvfl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ubyt8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+show_behind_parent = true
+texture_filter = 1
+position = Vector2(-45, 44)
+rotation = 4.54833
+sprite_frames = SubResource("SpriteFrames_b1dxl")
+autoplay = "default"
+frame_progress = 0.566698
