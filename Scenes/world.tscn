@@ -459,9 +459,10 @@ position = Vector2(258, 428)
 position = Vector2(553, 298)
 
 [node name="Cucumber" parent="." instance=ExtResource("11_0gdit")]
+position = Vector2(96, 544)
 
 [node name="Player" parent="." instance=ExtResource("1_px2ex")]
-position = Vector2(251, 505)
+position = Vector2(856, 544)
 
 [editable path="Objs/Table"]
 [editable path="Objs/Table/ObjHurtBox"]

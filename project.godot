@@ -17,7 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CommonVariables="*res://Common/common_variables.gd"
+MapContext="*res://Common/map_context.gd"
+FindPath="*res://AIUtils/find_path.gd"
 
 [display]
 

@@ -26,6 +26,7 @@ func _physics_process(delta):
 	else:
 		blinkEffectAnimation.stop()
 		blinkEffectAnimation.play("RESET")
+	seek_player()
 	# Handle Jump.
 #	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 #		velocity.y = JUMP_VELOCITY
@@ -40,6 +41,16 @@ func _physics_process(delta):
 	velocity.x = move_toward(velocity.x, 0, FRICTION*0.3)
 	move_and_slide()
 
+var player = null
+var tileMap = null
+func _ready():
+	pass
+	
+func seek_player():
+	if MapContext.get_obj("TILEMAP"):
+		var startPoint = MapContext.get_obj("TILEMAP").local_to_map(global_position)
+		var endPoint = MapContext.get_obj("TILEMAP").local_to_map(MapContext.get_obj("PLAYER").global_position)
+		FindPath.path(startPoint,endPoint)
 
 func _on_hurt_box_area_entered(area):
 	if area.name == "HitBox":
@@ -48,6 +59,6 @@ func _on_hurt_box_area_entered(area):
 			velocity = area.get_hit_velocity(global_position)
 
 func _on_territory_box_area_entered(area):
-	if area.tag == CommonVariables.HurtTag.PLAYER:
+	if area.tag == MapContext.OBJ.PLAYER:
 		print("PLAYER")
 	pass # Replace with function body.
