@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://jrc1t6b8jqwl"]
+[gd_scene load_steps=20 format=3 uid="uid://jrc1t6b8jqwl"]
 
 [ext_resource type="Script" path="res://Enemy/Enemy-Cucumber/Cucumber.gd" id="1_70jif"]
 [ext_resource type="Texture2D" uid="uid://dnhay52yhggps" path="res://Enemy/Enemy-Cucumber/EnemyCucumber.png" id="2_2h4xy"]
 [ext_resource type="Shader" path="res://Effects/Shaders/blink-effect.gdshader" id="2_ea4n5"]
 [ext_resource type="PackedScene" uid="uid://c78de7vermw86" path="res://Common/hurt_box.tscn" id="3_fa5c1"]
 [ext_resource type="PackedScene" uid="uid://dopgb8cpl4rtb" path="res://Common/territory_box.tscn" id="5_xn0lc"]
+[ext_resource type="PackedScene" uid="uid://13a4v0a0gkvb" path="res://Common/hit_box.tscn" id="6_rs6nv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p7un3"]
 shader = ExtResource("2_ea4n5")
@@ -41,6 +42,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cucumber/BlowHit/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_57dtn"]
 resource_name = "Run"
@@ -58,18 +71,49 @@ tracks/0/keys = {
 "values": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
 }
 
+[sub_resource type="Animation" id="Animation_pmjmj"]
+resource_name = "Attack"
+length = 0.55
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cucumber/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cucumber/BlowHit/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c0nwe"]
 _data = {
+"Blow": SubResource("Animation_pmjmj"),
 "Idle": SubResource("Animation_jvu44"),
 "RESET": SubResource("Animation_bkrp2"),
 "Run": SubResource("Animation_57dtn")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d55ae"]
-size = Vector2(24, 12.5)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b100k"]
+radius = 5.25
+height = 24.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ijf7d"]
-height = 58.0
+height = 60.0
 
 [sub_resource type="Animation" id="Animation_aj6tg"]
 length = 0.4
@@ -109,7 +153,11 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kukqr"]
-radius = 148.003
+radius = 304.026
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ikr8y"]
+radius = 16.0
+height = 42.0
 
 [node name="Cucumber" type="CharacterBody2D"]
 position = Vector2(171, 520)
@@ -121,7 +169,7 @@ material = SubResource("ShaderMaterial_p7un3")
 texture = ExtResource("2_2h4xy")
 hframes = 4
 vframes = 25
-frame = 16
+frame = 75
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
@@ -130,8 +178,9 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 27.75)
-shape = SubResource("RectangleShape2D_d55ae")
+position = Vector2(0, 29)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_b100k")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_fa5c1")]
 position = Vector2(0, -3)
@@ -139,6 +188,7 @@ collision_layer = 4096
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_ijf7d")
 
 [node name="BlinkEffectAnimation" type="AnimationPlayer" parent="."]
@@ -147,13 +197,25 @@ libraries = {
 }
 
 [node name="TerritoryBox" parent="." instance=ExtResource("5_xn0lc")]
-collision_mask = 16
+collision_mask = 1040
 
 [node name="CollisionShape2D" parent="TerritoryBox" index="0"]
 shape = SubResource("CircleShape2D_kukqr")
 
+[node name="BlowHit" parent="." instance=ExtResource("6_rs6nv")]
+position = Vector2(-26, 2)
+collision_layer = 2048
+collision_mask = 1040
+
+[node name="CollisionShape2D" parent="BlowHit" index="0"]
+shape = SubResource("CapsuleShape2D_ikr8y")
+disabled = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="TerritoryBox" to="." method="_on_territory_box_area_entered"]
+[connection signal="area_exited" from="TerritoryBox" to="." method="_on_territory_box_area_exited"]
 
 [editable path="HurtBox"]
 [editable path="TerritoryBox"]
+[editable path="BlowHit"]

@@ -6,6 +6,9 @@ extends Node2D
 
 #图块的自定义类型
 var tileArr = [] 
+var can_point_mapper = {}
+var map_size = Vector2i.ZERO
+var key_format = "%s-%s"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,7 +16,7 @@ func _ready():
 	MapContext.add_obj("TILEMAP",tileMap)
 	MapContext.add_obj("CUCUBER",cucumber)
 	
-	var map_size = tileMap.get_used_rect().size
+	map_size = tileMap.get_used_rect().size
 	for x in range(map_size.x):
 		tileArr.append([])
 		for y in range(map_size.y):
@@ -26,7 +29,56 @@ func _ready():
 	
 	FindPath.tileMap = tileMap
 	FindPath.tileArr = tileArr
+	var endPoint = tileMap.local_to_map(cucumber.global_position)
 	
+	for x in range(map_size.x):
+		for y in range(map_size.y):
+			var navigationTile = get_reachable_points(Vector2i(x,y))
+			if navigationTile:
+				can_point_mapper[key_format % [x, y]] = navigationTile
 	
+	FindPath.point_mapper = can_point_mapper
 	
+func get_reachable_points(point:Vector2i):
+	var navigationTile = NavigationTile.new()
+	navigationTile.point = point
+	if (tileArr[point.x][point.y] != 0 and tileArr[point.x][point.y] != 2) or tileArr[point.x][point.y+1]<2:
+		return null
+	var center = Vector2i(2,1)
+	var arr = []
+	for x in range(5):
+		arr.append([])
+		for y in range(3):
+			var difference = center-Vector2i(x,y)
+			var temp = point-difference
+			if temp.x < 0 or temp.y<0 or temp.x >= map_size.x  or temp.y>=map_size.y:
+				arr[x].append(-1)
+				continue
+			arr[x].append(tileArr[temp.x][temp.y])
+	for x in range(5):
+		for y in range(2):
+#			判断这个是否能容下玩家或敌人
+			
+			if (arr[x][y] != 0 and arr[x][y] != 2) or arr[x][y+1]<2:
+				continue
+			var difference = center-Vector2i(x,y)
+			var temp = point-difference
+			if x == 0 and y == 0 and (arr[x+1][y+1] == 0 or arr[x+1][y+1] == 2):
+				navigationTile.can_points.append(temp)
+			if x == 2 and y == 0 and arr[x][y+1]==2:
+				navigationTile.can_points.append(temp)
+			if x == 4 and y == 0 and (arr[x-1][y+1] == 0 or arr[x-1][y+1] == 2):
+				navigationTile.can_points.append(temp)
+			if x == 0 and y == 1 and arr[x+1][y] == 0:
+				navigationTile.can_points.append(temp)
+			if x == 0 and y == 5 and arr[x-1][y] == 0:
+				navigationTile.can_points.append(temp)
+			if y == 0 and (x==1 or x== 3):
+				navigationTile.can_points.append(temp)
+			if y == 1 and (x==1 or x== 3):
+				navigationTile.can_points.append(temp)
+	return navigationTile
 	
+class NavigationTile:
+	var point:Vector2i
+	var can_points:Array[Vector2i]=[]

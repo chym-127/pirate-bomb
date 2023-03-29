@@ -7,7 +7,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var hurtBox = $HurtBox
 @onready var hitBox = $HitBox
-
+@onready var animationPlayer = $AnimationPlayer
 
 var is_booming = false
 
@@ -27,7 +27,8 @@ func _physics_process(delta):
 
 
 func _on_animation_player_animation_finished(anim_name):
-	queue_free()
+	if anim_name == "boom":
+		queue_free()
 
 func hit(area:Area2D,position):
 	var x_speed = SPEED
@@ -43,6 +44,9 @@ func start_boom():
 	is_booming = true
 
 func _on_hurt_box_area_entered(area):
-	if area.name == "HitBox":
-		velocity = hitBox.get_hit_velocity(hurtBox.global_position)
-		print(velocity)
+#	if area.name == "HitBox":
+#		velocity = hitBox.get_hit_velocity(hurtBox.global_position)
+#		print(velocity)
+	if area.tag == MapContext.HitTag.BLOWHIT:
+		animationPlayer.stop()
+		animationPlayer.play("Idle")
