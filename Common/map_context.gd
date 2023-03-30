@@ -9,7 +9,9 @@ enum HurtTag {
 }
 
 enum HitTag {
-	BLOWHIT
+	BOMBHIT,
+	BLOWHIT,
+	ENEMYHIT
 }
 
 func add_obj(name,node:Node):

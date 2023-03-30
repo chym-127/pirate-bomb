@@ -22,7 +22,6 @@ size = Vector2(80, 32)
 position = Vector2(248, 559)
 collision_layer = 128
 collision_mask = 129
-mass = 2.0
 script = ExtResource("1_yncsg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

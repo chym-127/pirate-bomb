@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnosf6ysgeolr"]
+[gd_scene load_steps=17 format=3 uid="uid://cnosf6ysgeolr"]
 
 [ext_resource type="Script" path="res://Scenes/world.gd" id="1_8xa5k"]
 [ext_resource type="PackedScene" uid="uid://b2ex68ts3llna" path="res://Player/player.tscn" id="1_px2ex"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dxb474fe2cdla" path="res://Objects/big_chain.tscn" id="9_te834"]
 [ext_resource type="PackedScene" uid="uid://dlx6mkm2in5w8" path="res://Objects/small_chain.tscn" id="10_a751n"]
 [ext_resource type="PackedScene" uid="uid://jrc1t6b8jqwl" path="res://Enemy/Enemy-Cucumber/cucumber.tscn" id="11_0gdit"]
+[ext_resource type="PackedScene" uid="uid://cemtxuk8xutth" path="res://Enemy/EnemyBaldPirate/EnemyBaldPirate.tscn" id="14_36fig"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dplix"]
 texture = ExtResource("2_ys6cp")
@@ -458,6 +459,15 @@ position = Vector2(408, 248)
 [node name="RedBottle2" parent="Objs" instance=ExtResource("5_1e65y")]
 position = Vector2(553, 298)
 
+[node name="Chair2" parent="Objs" instance=ExtResource("4_m8eoh")]
+position = Vector2(760, 352)
+
+[node name="Candle2" parent="Objs" instance=ExtResource("8_ev3bv")]
+position = Vector2(512, 136)
+
+[node name="BigChain4" parent="Objs" instance=ExtResource("9_te834")]
+position = Vector2(880, 248)
+
 [node name="bombs" type="Node2D" parent="."]
 
 [node name="Cucumber" parent="." instance=ExtResource("11_0gdit")]
@@ -465,6 +475,9 @@ position = Vector2(96, 544)
 
 [node name="Player" parent="." instance=ExtResource("1_px2ex")]
 position = Vector2(408, 480)
+
+[node name="BaldPirate" parent="." instance=ExtResource("14_36fig")]
+position = Vector2(808, 320)
 
 [editable path="Objs/Table"]
 [editable path="Objs/Table/ObjHurtBox"]

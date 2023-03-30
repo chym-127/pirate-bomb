@@ -21,7 +21,7 @@ enum {
 	HURTING
 }
 
-var CD = 1.0
+var CD = 1.6
 var state = RUN
 var is_jumping = false
 var can_attack = true
@@ -111,11 +111,16 @@ func attack():
 	world.add_child(bomb)
 
 func _on_hurt_box_area_entered(area:Area2D):
-	if area.name == "HitBox":
+	if area.tag:
 		if not hurtBox.is_invincible():
 			hurtBox.start_invincible()
 			velocity = area.get_hit_velocity(global_position)
 			state = HURTING
-
+		match area.tag:
+			MapContext.HitTag.ENEMYHIT:
+				pass
+			MapContext.HitTag.BOMBHIT:
+				pass
+				
 func _on_attack_timer_timeout():
 	can_attack = true

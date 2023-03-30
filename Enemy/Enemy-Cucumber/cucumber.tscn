@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://jrc1t6b8jqwl"]
+[gd_scene load_steps=25 format=3 uid="uid://jrc1t6b8jqwl"]
 
 [ext_resource type="Script" path="res://Enemy/Enemy-Cucumber/Cucumber.gd" id="1_70jif"]
 [ext_resource type="Texture2D" uid="uid://dnhay52yhggps" path="res://Enemy/Enemy-Cucumber/EnemyCucumber.png" id="2_2h4xy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c78de7vermw86" path="res://Common/hurt_box.tscn" id="3_fa5c1"]
 [ext_resource type="PackedScene" uid="uid://dopgb8cpl4rtb" path="res://Common/territory_box.tscn" id="5_xn0lc"]
 [ext_resource type="PackedScene" uid="uid://13a4v0a0gkvb" path="res://Common/hit_box.tscn" id="6_rs6nv"]
+[ext_resource type="PackedScene" uid="uid://cy3c7pfk65vcq" path="res://Common/stats.tscn" id="7_h2cqx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p7un3"]
 shader = ExtResource("2_ea4n5")
@@ -45,10 +46,22 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Cucumber/BlowHit/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Cucumber/BlowHitBox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cucumber/HitBox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -90,7 +103,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Cucumber/BlowHit/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Cucumber/BlowHitBox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -100,17 +113,64 @@ tracks/1/keys = {
 "values": [true, false, true]
 }
 
+[sub_resource type="Animation" id="Animation_t42am"]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cucumber/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [58, 59, 60, 61, 62, 63, 64, 65, 66, 67]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cucumber/HitBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_hgg2r"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cucumber/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [88, 89, 90, 91, 92, 93, 94, 95, 96, 97]
+}
+
+[sub_resource type="Animation" id="Animation_6clw8"]
+resource_name = "JumpUp"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c0nwe"]
 _data = {
 "Blow": SubResource("Animation_pmjmj"),
+"Death": SubResource("Animation_hgg2r"),
+"Hit": SubResource("Animation_t42am"),
 "Idle": SubResource("Animation_jvu44"),
+"JumpUp": SubResource("Animation_6clw8"),
 "RESET": SubResource("Animation_bkrp2"),
 "Run": SubResource("Animation_57dtn")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b100k"]
-radius = 5.25
-height = 24.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbcy8"]
+size = Vector2(6, 24)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ijf7d"]
 height = 60.0
@@ -153,11 +213,15 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kukqr"]
-radius = 304.026
+radius = 123.065
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ikr8y"]
 radius = 16.0
-height = 42.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kgv3j"]
+radius = 8.0
+height = 28.0
 
 [node name="Cucumber" type="CharacterBody2D"]
 position = Vector2(171, 520)
@@ -169,7 +233,7 @@ material = SubResource("ShaderMaterial_p7un3")
 texture = ExtResource("2_2h4xy")
 hframes = 4
 vframes = 25
-frame = 75
+frame = 50
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
@@ -178,11 +242,12 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 29)
+position = Vector2(0, 31)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_b100k")
+shape = SubResource("RectangleShape2D_hbcy8")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_fa5c1")]
+visible = false
 position = Vector2(0, -3)
 collision_layer = 4096
 collision_mask = 8
@@ -197,19 +262,38 @@ libraries = {
 }
 
 [node name="TerritoryBox" parent="." instance=ExtResource("5_xn0lc")]
+visible = false
 collision_mask = 1040
 
 [node name="CollisionShape2D" parent="TerritoryBox" index="0"]
 shape = SubResource("CircleShape2D_kukqr")
 
-[node name="BlowHit" parent="." instance=ExtResource("6_rs6nv")]
+[node name="BlowHitBox" parent="." instance=ExtResource("6_rs6nv")]
+visible = false
 position = Vector2(-26, 2)
 collision_layer = 2048
-collision_mask = 1040
+collision_mask = 1024
+tag = 1
 
-[node name="CollisionShape2D" parent="BlowHit" index="0"]
+[node name="CollisionShape2D" parent="BlowHitBox" index="0"]
 shape = SubResource("CapsuleShape2D_ikr8y")
 disabled = true
+
+[node name="HitBox" parent="." instance=ExtResource("6_rs6nv")]
+visible = false
+position = Vector2(48, 0)
+collision_layer = 2048
+collision_mask = 16
+tag = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(-25, -5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_kgv3j")
+disabled = true
+
+[node name="stats" parent="." instance=ExtResource("7_h2cqx")]
+MAX_HEARTH = 1
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
@@ -218,4 +302,5 @@ disabled = true
 
 [editable path="HurtBox"]
 [editable path="TerritoryBox"]
-[editable path="BlowHit"]
+[editable path="BlowHitBox"]
+[editable path="HitBox"]

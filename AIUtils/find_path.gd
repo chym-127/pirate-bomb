@@ -6,6 +6,28 @@ var point_mapper = {}
 var tileMap = null
 var cell_size = 64
 
+#寻找目标
+func seek_target(current_node:CharacterBody2D,target_node:CharacterBody2D,offset:int,d_v:Vector2):
+	var found = false
+	if target_node and current_node and target_node.is_on_floor() and current_node.is_on_floor():
+		var startPoint = MapContext.get_obj("TILEMAP").local_to_map(current_node.global_position)
+		var endPoint = MapContext.get_obj("TILEMAP").local_to_map(target_node.global_position)
+		if startPoint == endPoint:
+			if abs(current_node.global_position.x - target_node.global_position.x) > offset:
+				var x = current_node.global_position.direction_to(target_node.global_position).x
+				if x > 0:
+					d_v.x = 1
+				if x < 0:
+					d_v.x = -1
+			else:
+				d_v = Vector2.ZERO
+				found = true
+		else:
+			var seek_path = FindPath.path(startPoint,endPoint)
+			if seek_path:
+				d_v = get_action(seek_path,current_node.global_position)
+	return [d_v,found]
+
 func path(startPoint:Vector2i,endPoint:Vector2i):
 	if not point_mapper.has(key_format % [endPoint.x, endPoint.y]):
 		return

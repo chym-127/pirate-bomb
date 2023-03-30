@@ -1,7 +1,9 @@
 extends Area2D
 
 enum HitTag {
-	BLOWHIT
+	BOMBHIT,
+	BLOWHIT,
+	ENEMYHIT
 }
 
 
@@ -13,8 +15,7 @@ enum HitTag {
 func get_hit_velocity(position):
 	var x_speed = X_SPEED*0.8
 	var y_speed = Y_SPEED*0.7
-	var d_v = global_position.direction_to(position)
-	
+	var d_v = get_parent().global_position.direction_to(position)
 	if d_v.x<=0:
 		x_speed *= -1
 	return Vector2(x_speed,y_speed)

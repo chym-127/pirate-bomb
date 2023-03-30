@@ -168,7 +168,8 @@ libraries = {
 material = SubResource("ShaderMaterial_3mygs")
 position = Vector2(5, 4)
 collision_layer = 16
-collision_mask = 8200
+collision_mask = 2056
+invincible_time = 3.0
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, 2)

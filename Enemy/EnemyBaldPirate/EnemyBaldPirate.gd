@@ -1,14 +1,13 @@
 extends CharacterBody2D
 
 
-const SPEED = 100.0
+const SPEED = 140.0
 const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 const FRICTION = 25
 
 @onready var actionAnimation = $AnimationPlayer
 @onready var sprite = $Sprite2D
-@onready var bolwHit = $BlowHitBox
 @onready var hitBox = $HitBox
 @onready var hurtBox = $HurtBox
 @onready var blinkEffectAnimation:AnimationPlayer = $BlinkEffectAnimation
@@ -16,7 +15,6 @@ const FRICTION = 25
 enum {
 	SEEK_PLAYER,
 	SEEK_BOMB,
-	BLOW,
 	HURT,
 	HIT,
 	IDLE,
@@ -32,16 +30,14 @@ var tileMap = null
 var seek_path = []
 var bomb = null
 
-
 func _ready():
 	stats.connect("no_hearth",Callable(self, "death"))
 
 func _physics_process(delta):
 	if state == DEATH:
 		return
-	
 	common(delta)
-	if state != BLOW and  state != HIT:
+	if state != HIT:
 		if can_see_player:
 			state = SEEK_PLAYER
 		if can_see_bomb:
@@ -63,12 +59,6 @@ func _physics_process(delta):
 			actionAnimation.play("Idle")
 			velocity.x = move_toward(velocity.x, 0, FRICTION*1.3)
 			
-	if state == BLOW:
-		velocity = Vector2.ZERO
-		if bomb:
-			var d = global_position.direction_to(bomb.global_position)
-			change_direction(d.x)
-		actionAnimation.play("Blow")
 	if state == HIT:
 		velocity = Vector2.ZERO
 		if MapContext.get_obj("PLAYER"):
@@ -78,7 +68,7 @@ func _physics_process(delta):
 		
 	change_direction(d_v.x)
 	move_and_slide()
-	
+
 func death():
 	state = DEATH
 	actionAnimation.play("Death")
@@ -87,9 +77,9 @@ func seek_bomb_state():
 	var startPoint = MapContext.get_obj("TILEMAP").local_to_map(global_position)
 	var endPoint = MapContext.get_obj("TILEMAP").local_to_map(bomb.global_position)
 	if startPoint.y == endPoint.y:
-		var data = FindPath.seek_target(self,bomb,20,d_v)
+		var data = FindPath.seek_target(self,bomb,16,d_v)
 		if data[1]:
-			state = BLOW
+			state = HIT
 		else:
 			d_v = data[0]
 				
@@ -109,11 +99,11 @@ func jump():
 func change_direction(direction):
 	if direction > 0:
 		sprite.flip_h = true
-		bolwHit.position = Vector2(26,2)
-		hitBox.position = Vector2(48,0)
+		hitBox.position = Vector2(2,22)
+		hitBox.rotation = 70.0
 	if direction < 0:
-		bolwHit.position = Vector2(-26,2)
-		hitBox.position = Vector2(0,0)
+		hitBox.position = Vector2(-2,23)
+		hitBox.rotation = 106
 		sprite.flip_h = false
 
 func common(delta):
@@ -131,13 +121,23 @@ func common(delta):
 		blinkEffectAnimation.stop()
 		blinkEffectAnimation.play("RESET")
 	
-
+func seek_bomb():
+	if MapContext.get_obj("TILEMAP"):
+		var startPoint = MapContext.get_obj("TILEMAP").local_to_map(global_position)
+		var endPoint = MapContext.get_obj("TILEMAP").local_to_map(bomb.global_position)
+		seek_path = FindPath.path(startPoint,endPoint)
+	
+func seek_player():
+	if MapContext.get_obj("TILEMAP"):
+		var startPoint = MapContext.get_obj("TILEMAP").local_to_map(global_position)
+		var endPoint = MapContext.get_obj("TILEMAP").local_to_map(MapContext.get_obj("PLAYER").global_position)
+		seek_path = FindPath.path(startPoint,endPoint)
 
 func _on_hurt_box_area_entered(area):
 	if area.name == "HitBox":
 		if not hurtBox.is_invincible():
-			stats.hearth -= 1
 			hurtBox.start_invincible()
+			stats.hearth -= 1
 			velocity = area.get_hit_velocity(global_position)
 
 func _on_territory_box_area_entered(area):
@@ -159,7 +159,7 @@ func _on_territory_box_area_exited(area):
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "Blow" || anim_name == "Hit":
+	if anim_name == "Hit":
 		state = IDLE
 	if anim_name == "Death":
 		queue_free()
