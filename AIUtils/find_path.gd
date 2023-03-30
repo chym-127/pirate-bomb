@@ -9,9 +9,13 @@ var cell_size = 64
 #寻找目标
 func seek_target(current_node:CharacterBody2D,target_node:CharacterBody2D,offset:int,d_v:Vector2):
 	var found = false
-	if target_node and current_node and target_node.is_on_floor() and current_node.is_on_floor():
+	if target_node and current_node and current_node.is_on_floor():
 		var startPoint = MapContext.get_obj("TILEMAP").local_to_map(current_node.global_position)
 		var endPoint = MapContext.get_obj("TILEMAP").local_to_map(target_node.global_position)
+		if not target_node.is_on_floor():
+			var land_point = get_landing_point(endPoint)
+			if land_point:
+				endPoint = land_point
 		if startPoint == endPoint:
 			if abs(current_node.global_position.x - target_node.global_position.x) > offset:
 				var x = current_node.global_position.direction_to(target_node.global_position).x
@@ -27,6 +31,16 @@ func seek_target(current_node:CharacterBody2D,target_node:CharacterBody2D,offset
 			if seek_path:
 				d_v = get_action(seek_path,current_node.global_position)
 	return [d_v,found]
+
+func get_landing_point(nowPoint:Vector2):
+	var c_y = nowPoint.y
+	var t_y = MapContext.get_obj("TILEMAP").get_used_rect().size.y
+	while c_y <= t_y:
+		if tileArr[nowPoint.x][c_y] > 1:
+			return Vector2i(nowPoint.x,c_y)
+		c_y += 1
+	return Vector2i.ZERO
+
 
 func path(startPoint:Vector2i,endPoint:Vector2i):
 	if not point_mapper.has(key_format % [endPoint.x, endPoint.y]):
