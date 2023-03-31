@@ -1,6 +1,6 @@
 extends Node2D
 
-var l_1 = preload("res://Scenes/world.tscn")
+var l_1 = preload("res://Scenes/level_1.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

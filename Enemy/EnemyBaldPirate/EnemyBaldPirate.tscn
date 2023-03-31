@@ -187,7 +187,6 @@ scale = Vector2(-1, 1)
 texture = ExtResource("3_kfw7l")
 hframes = 4
 vframes = 22
-frame = 32
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
@@ -201,7 +200,6 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_hbcy8")
 
 [node name="HurtBox" parent="." instance=ExtResource("4_n1bt4")]
-visible = false
 position = Vector2(0, -3)
 collision_layer = 4096
 collision_mask = 8
@@ -216,14 +214,12 @@ libraries = {
 }
 
 [node name="TerritoryBox" parent="." instance=ExtResource("5_77pu5")]
-visible = false
 collision_mask = 1040
 
 [node name="CollisionShape2D" parent="TerritoryBox" index="0"]
 shape = SubResource("CircleShape2D_kukqr")
 
 [node name="HitBox" parent="." instance=ExtResource("6_31lbf")]
-visible = false
 position = Vector2(-2, 23)
 rotation = 1.85005
 collision_layer = 2048
