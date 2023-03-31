@@ -27,9 +27,11 @@ func seek_target(current_node:CharacterBody2D,target_node:CharacterBody2D,offset
 				d_v = Vector2.ZERO
 				found = true
 		else:
+			if tileArr[startPoint.x][startPoint.y+1] == 0:
+				startPoint.x = startPoint.x - d_v.x
 			var seek_path = FindPath.path(startPoint,endPoint)
-			if seek_path:
-				d_v = get_action(seek_path,current_node.global_position)
+			if seek_path and seek_path.size():
+				d_v = get_action(seek_path,startPoint,current_node.global_position)
 	return [d_v,found]
 
 func get_landing_point(nowPoint:Vector2):
@@ -75,8 +77,8 @@ func path(startPoint:Vector2i,endPoint:Vector2i):
 			path.append(Vector2(startPoint.x+1,startPoint.y))
 	return path
 	
-func get_action(seek_path:Array[Vector2],global_position):
-	var current_point = MapContext.get_obj("TILEMAP").local_to_map(global_position)
+func get_action(seek_path:Array[Vector2],current_point,global_position):
+#	var current_point = MapContext.get_obj("TILEMAP").local_to_map(global_position)
 	var len = seek_path.size()
 	var next_point = null
 	var d_v = Vector2.ZERO

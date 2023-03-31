@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnosf6ysgeolr"]
+[gd_scene load_steps=15 format=3 uid="uid://cnosf6ysgeolr"]
 
-[ext_resource type="Script" path="res://Scenes/world.gd" id="1_8xa5k"]
+[ext_resource type="Script" path="res://Scenes/levels_init.gd" id="1_2l251"]
 [ext_resource type="PackedScene" uid="uid://b2ex68ts3llna" path="res://Player/player.tscn" id="1_px2ex"]
 [ext_resource type="TileSet" uid="uid://cq2kdq5j0jtx4" path="res://Scenes/tileset.tres" id="2_isphx"]
 [ext_resource type="PackedScene" uid="uid://nbu30tw20q6d" path="res://Objects/table.tscn" id="2_sdlcb"]
+[ext_resource type="PackedScene" uid="uid://cvyohg1sg253v" path="res://Common/door.tscn" id="3_ordcr"]
 [ext_resource type="PackedScene" uid="uid://caft8uwyjltva" path="res://Objects/green_bottle.tscn" id="4_4gi38"]
 [ext_resource type="PackedScene" uid="uid://b6gjy0cvlkjhg" path="res://Objects/chair.tscn" id="4_m8eoh"]
 [ext_resource type="PackedScene" uid="uid://bnj25yjroidxh" path="res://Objects/red_bottle.tscn" id="5_1e65y"]
@@ -13,13 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://dxb474fe2cdla" path="res://Objects/big_chain.tscn" id="9_te834"]
 [ext_resource type="PackedScene" uid="uid://dlx6mkm2in5w8" path="res://Objects/small_chain.tscn" id="10_a751n"]
 [ext_resource type="PackedScene" uid="uid://jrc1t6b8jqwl" path="res://Enemy/Enemy-Cucumber/cucumber.tscn" id="11_0gdit"]
-[ext_resource type="PackedScene" uid="uid://cemtxuk8xutth" path="res://Enemy/EnemyBaldPirate/EnemyBaldPirate.tscn" id="14_36fig"]
-[ext_resource type="PackedScene" uid="uid://b2mhe268ppw11" path="res://Enemy/enemy_captain.tscn" id="15_8vmn8"]
 
 [node name="World" type="Node2D"]
-script = ExtResource("1_8xa5k")
+script = ExtResource("1_2l251")
 
-[node name="WallAndRoad" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_isphx")
 format = 2
 layer_0/name = "bg"
@@ -31,6 +30,8 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(0, 1, 3, 1, 65537, 2, 2, 65537, 2, 3, 65537, 2, 4, 65537, 2, 5, 65537, 2, 6, 65537, 2, 7, 65537, 2, 8, 65537, 2, 9, 65537, 2, 10, 65537, 2, 11, 65537, 2, 12, 65537, 2, 13, 65537, 2, 14, 65537, 3, 65550, 1, 1, 131086, 1, 1, 196622, 65537, 4, 262158, 65537, 4, 327694, 65537, 4, 393230, 65537, 4, 458766, 1, 1, 524302, 65537, 4, 589838, 65537, 4, 589837, 65537, 0, 589836, 65537, 0, 589835, 65537, 0, 589834, 65537, 0, 589833, 65537, 0, 589832, 65537, 0, 589831, 65537, 0, 589830, 65537, 0, 589829, 65537, 0, 589828, 65537, 0, 589827, 65537, 0, 589826, 65537, 0, 589825, 65537, 0, 589824, 1, 4, 524288, 131073, 1, 458752, 1, 4, 393216, 131073, 1, 327680, 1, 3, 262144, 65537, 1, 196608, 131073, 1, 131072, 131073, 1, 65536, 131073, 1, 196609, 65537, 0, 196610, 65537, 0, 196611, 65537, 0, 196612, 131073, 0, 262148, 131073, 1, 327684, 131073, 2, 327683, 65537, 2, 327682, 65537, 2, 327681, 65537, 2, 393229, 65537, 0, 393228, 65537, 0, 393227, 65537, 0, 393226, 65537, 0, 393225, 65537, 0, 262147, 65537, 1, 262146, 65537, 1, 262145, 65537, 1, 196621, 327681, 3, 196620, 327681, 3, 196619, 262145, 3, 262154, 327681, 4, 327688, 327681, 4, 262150, 327681, 4, 196616, 327681, 4, 524294, 327681, 4, 524299, 327681, 4, 458760, 327681, 4, 524289, 327681, 3, 524290, 327681, 3, 524291, 262145, 4)
+
+[node name="Door" parent="." instance=ExtResource("3_ordcr")]
 
 [node name="Objs" type="Node2D" parent="."]
 
@@ -96,12 +97,6 @@ position = Vector2(880, 248)
 
 [node name="Cucumber" parent="." instance=ExtResource("11_0gdit")]
 position = Vector2(96, 544)
-
-[node name="BaldPirate" parent="." instance=ExtResource("14_36fig")]
-position = Vector2(808, 320)
-
-[node name="EnemyCaptain" parent="." instance=ExtResource("15_8vmn8")]
-position = Vector2(672, 544)
 
 [node name="Player" parent="." instance=ExtResource("1_px2ex")]
 position = Vector2(408, 480)

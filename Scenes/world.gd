@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var tileMap = $WallAndRoad
 @onready var player = $Player
-@onready var cucumber = $Cucumber
 
 #图块的自定义类型
 var tileArr = [] 
@@ -14,7 +13,6 @@ var key_format = "%s-%s"
 func _ready():
 	MapContext.add_obj("PLAYER",player)
 	MapContext.add_obj("TILEMAP",tileMap)
-	MapContext.add_obj("CUCUBER",cucumber)
 	
 	map_size = tileMap.get_used_rect().size
 	for x in range(map_size.x):
@@ -29,7 +27,6 @@ func _ready():
 	
 	FindPath.tileMap = tileMap
 	FindPath.tileArr = tileArr
-	var endPoint = tileMap.local_to_map(cucumber.global_position)
 	
 	for x in range(map_size.x):
 		for y in range(map_size.y):

@@ -121,18 +121,6 @@ func common(delta):
 		blinkEffectAnimation.stop()
 		blinkEffectAnimation.play("RESET")
 	
-func seek_bomb():
-	if MapContext.get_obj("TILEMAP"):
-		var startPoint = MapContext.get_obj("TILEMAP").local_to_map(global_position)
-		var endPoint = MapContext.get_obj("TILEMAP").local_to_map(bomb.global_position)
-		seek_path = FindPath.path(startPoint,endPoint)
-	
-func seek_player():
-	if MapContext.get_obj("TILEMAP"):
-		var startPoint = MapContext.get_obj("TILEMAP").local_to_map(global_position)
-		var endPoint = MapContext.get_obj("TILEMAP").local_to_map(MapContext.get_obj("PLAYER").global_position)
-		seek_path = FindPath.path(startPoint,endPoint)
-
 func _on_hurt_box_area_entered(area):
 	if area.name == "HitBox":
 		if not hurtBox.is_invincible():
@@ -162,4 +150,5 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Hit":
 		state = IDLE
 	if anim_name == "Death":
+		LevelsContext.enemy_death()
 		queue_free()

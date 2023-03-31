@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 100.0
+const SPEED = 120.0
 const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 const FRICTION = 25
@@ -162,4 +162,5 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Blow" || anim_name == "Hit":
 		state = IDLE
 	if anim_name == "Death":
+		LevelsContext.enemy_death()
 		queue_free()

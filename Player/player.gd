@@ -5,6 +5,8 @@ const FRICTION = 25
 const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+
+@export var stay = false
 @onready var playerActionAnimation = $PlayerAction
 @onready var playerSprite = $Sprite2D
 @onready var foot = $Foot
@@ -18,7 +20,8 @@ enum {
 	IDLE,
 	RUN,
 	JUMP,
-	HURTING
+	HURTING,
+	WIN
 }
 
 var CD = 1.6
@@ -29,6 +32,12 @@ var can_attack = true
 var recentDirection = 0
 
 func _physics_process(delta):
+	if state == WIN:
+		playerActionAnimation.play("In_Door")
+		return
+	if stay:
+		playerActionAnimation.play("Idle")
+		return
 	if hurtBox.is_invincible():
 		blinkEffectAnimation.play("start")
 	else:
@@ -124,3 +133,11 @@ func _on_hurt_box_area_entered(area:Area2D):
 				
 func _on_attack_timer_timeout():
 	can_attack = true
+	
+func enter_door():
+	state = WIN
+
+func _on_player_action_animation_finished(anim_name):
+	if anim_name == "In_Door":
+		queue_free()
+		LevelsContext.player_entered_door()

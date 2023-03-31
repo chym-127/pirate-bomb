@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pirate-bomb"
-run/main_scene="res://Scenes/world.tscn"
+run/main_scene="res://Scenes/menu_scene.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,13 +19,14 @@ config/icon="res://icon.svg"
 
 MapContext="*res://Common/map_context.gd"
 FindPath="*res://AIUtils/find_path.gd"
+LevelsContext="*res://Common/levels_context.gd"
 
 [display]
 
 window/size/viewport_width=960
 window/size/viewport_height=640
-window/size/window_width_override=1280
-window/size/window_height_override=720
+window/size/window_width_override=960
+window/size/window_height_override=640
 window/stretch/mode="canvas_items"
 
 [input]
@@ -52,6 +53,7 @@ attack={
 2d_physics/layer_12="EnemyHit"
 2d_physics/layer_13="EnemyHurt"
 2d_physics/layer_14="TerritoryBox"
+2d_physics/layer_15="DoorBox"
 
 [physics]
 

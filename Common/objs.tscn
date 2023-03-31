@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://ci11sbhckrn2c"]
+
+[ext_resource type="PackedScene" uid="uid://bnj25yjroidxh" path="res://Objects/red_bottle.tscn" id="1_8mtkx"]
+[ext_resource type="PackedScene" uid="uid://cdo11wxod5jr0" path="res://Objects/windows.tscn" id="2_6sflt"]
+[ext_resource type="PackedScene" uid="uid://nbu30tw20q6d" path="res://Objects/table.tscn" id="3_e88mk"]
+[ext_resource type="PackedScene" uid="uid://b6gjy0cvlkjhg" path="res://Objects/chair.tscn" id="4_t7gme"]
+[ext_resource type="PackedScene" uid="uid://d1bqyihsg26ow" path="res://Objects/barrel.tscn" id="5_xsv0i"]
+[ext_resource type="PackedScene" uid="uid://dxb474fe2cdla" path="res://Objects/big_chain.tscn" id="6_hn4nj"]
+[ext_resource type="PackedScene" uid="uid://dlx6mkm2in5w8" path="res://Objects/small_chain.tscn" id="7_jntg4"]
+[ext_resource type="PackedScene" uid="uid://x10on2khencl" path="res://Objects/candle.tscn" id="8_cdp0u"]
+[ext_resource type="PackedScene" uid="uid://caft8uwyjltva" path="res://Objects/green_bottle.tscn" id="9_344lv"]
+
+[node name="Objs" type="Node2D"]
+
+[node name="RedBottle" parent="." instance=ExtResource("1_8mtkx")]
+position = Vector2(792, 240)
+
+[node name="RedBottle2" parent="." instance=ExtResource("1_8mtkx")]
+position = Vector2(432, 304)
+
+[node name="RedBottle3" parent="." instance=ExtResource("1_8mtkx")]
+position = Vector2(272, 496)
+
+[node name="RedBottle4" parent="." instance=ExtResource("1_8mtkx")]
+position = Vector2(208, 112)
+
+[node name="Windows" parent="." instance=ExtResource("2_6sflt")]
+position = Vector2(856, 96)
+
+[node name="Windows2" parent="." instance=ExtResource("2_6sflt")]
+position = Vector2(416, 96)
+
+[node name="Table" parent="." instance=ExtResource("3_e88mk")]
+position = Vector2(472, 560)
+
+[node name="Chair" parent="." instance=ExtResource("4_t7gme")]
+position = Vector2(408, 552)
+
+[node name="Barrel" parent="." instance=ExtResource("5_xsv0i")]
+position = Vector2(88, 168)
+
+[node name="Barrel2" parent="." instance=ExtResource("5_xsv0i")]
+position = Vector2(872, 296)
+
+[node name="Barrel3" parent="." instance=ExtResource("5_xsv0i")]
+position = Vector2(872, 248)
+
+[node name="BigChain" parent="." instance=ExtResource("6_hn4nj")]
+position = Vector2(72, 112)
+
+[node name="BigChain2" parent="." instance=ExtResource("6_hn4nj")]
+position = Vector2(560, 432)
+
+[node name="SmallChain" parent="." instance=ExtResource("7_jntg4")]
+position = Vector2(544, 408)
+
+[node name="SmallChain2" parent="." instance=ExtResource("7_jntg4")]
+position = Vector2(88, 88)
+
+[node name="Candle" parent="." instance=ExtResource("8_cdp0u")]
+position = Vector2(520, 496)
+
+[node name="Candle2" parent="." instance=ExtResource("8_cdp0u")]
+position = Vector2(216, 496)
+
+[node name="RedBottle5" parent="." instance=ExtResource("1_8mtkx")]
+position = Vector2(480, 520)
+
+[node name="GreenBottle" parent="." instance=ExtResource("9_344lv")]
+position = Vector2(448, 512)

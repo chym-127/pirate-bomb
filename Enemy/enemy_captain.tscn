@@ -28,6 +28,22 @@ tracks/0/keys = {
 "values": [83, 84, 85, 86, 87, 88, 89, 90, 91, 92]
 }
 
+[sub_resource type="Animation" id="Animation_wlm2o"]
+resource_name = "Escape"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyCaptain/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73]
+}
+
 [sub_resource type="Animation" id="Animation_t42am"]
 resource_name = "Hit"
 length = 0.7
@@ -116,22 +132,6 @@ tracks/0/keys = {
 "values": [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]
 }
 
-[sub_resource type="Animation" id="Animation_wlm2o"]
-resource_name = "Escape"
-length = 1.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnemyCaptain/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c0nwe"]
 _data = {
 "Death": SubResource("Animation_hgg2r"),
@@ -187,7 +187,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kukqr"]
-radius = 536.479
+radius = 236.172
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kgv3j"]
 radius = 25.0
@@ -249,7 +249,6 @@ shape = SubResource("CapsuleShape2D_kgv3j")
 disabled = true
 
 [node name="stats" parent="." instance=ExtResource("7_pytkf")]
-MAX_HEARTH = 1
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished" flags=18]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered" flags=18]

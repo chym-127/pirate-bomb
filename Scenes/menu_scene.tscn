@@ -1,0 +1,108 @@
+[gd_scene load_steps=18 format=3 uid="uid://exgnj4p1jtqn"]
+
+[ext_resource type="Script" path="res://Scenes/menu_scene.gd" id="1_a1fsh"]
+[ext_resource type="TileSet" uid="uid://cq2kdq5j0jtx4" path="res://Scenes/tileset.tres" id="1_fvuuv"]
+[ext_resource type="StyleBox" uid="uid://cnhhl8i6noyg2" path="res://UI/style/button.tres" id="2_2h051"]
+[ext_resource type="Texture2D" uid="uid://1wmi3vp53lu2" path="res://ExportedIcons/Icon_Play.png" id="2_oxdgn"]
+[ext_resource type="PackedScene" uid="uid://x10on2khencl" path="res://Objects/candle.tscn" id="4_0wwo8"]
+[ext_resource type="PackedScene" uid="uid://bnj25yjroidxh" path="res://Objects/red_bottle.tscn" id="5_2egps"]
+[ext_resource type="PackedScene" uid="uid://caft8uwyjltva" path="res://Objects/green_bottle.tscn" id="6_jhvm0"]
+[ext_resource type="PackedScene" uid="uid://jrc1t6b8jqwl" path="res://Enemy/Enemy-Cucumber/cucumber.tscn" id="7_anqbg"]
+[ext_resource type="PackedScene" uid="uid://nbu30tw20q6d" path="res://Objects/table.tscn" id="8_x47mv"]
+[ext_resource type="PackedScene" uid="uid://b6gjy0cvlkjhg" path="res://Objects/chair.tscn" id="9_i3778"]
+[ext_resource type="PackedScene" uid="uid://cemtxuk8xutth" path="res://Enemy/EnemyBaldPirate/EnemyBaldPirate.tscn" id="10_k64gt"]
+[ext_resource type="PackedScene" uid="uid://b2mhe268ppw11" path="res://Enemy/enemy_captain.tscn" id="11_eho3x"]
+[ext_resource type="PackedScene" uid="uid://b2ex68ts3llna" path="res://Player/player.tscn" id="12_p178o"]
+[ext_resource type="PackedScene" uid="uid://dxb474fe2cdla" path="res://Objects/big_chain.tscn" id="13_4c8fx"]
+[ext_resource type="PackedScene" uid="uid://dlx6mkm2in5w8" path="res://Objects/small_chain.tscn" id="14_e0gyp"]
+[ext_resource type="PackedScene" uid="uid://cdo11wxod5jr0" path="res://Objects/windows.tscn" id="15_43r7o"]
+[ext_resource type="PackedScene" uid="uid://d1bqyihsg26ow" path="res://Objects/barrel.tscn" id="16_666hr"]
+
+[node name="MenuScene" type="Node2D"]
+script = ExtResource("1_a1fsh")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_fvuuv")
+format = 2
+layer_0/name = "bg"
+layer_0/tile_data = PackedInt32Array(0, 1, 3, 1, 65537, 2, 2, 65537, 2, 3, 65537, 2, 4, 65537, 2, 5, 65537, 2, 6, 65537, 2, 7, 65537, 2, 8, 65537, 2, 9, 65537, 2, 10, 65537, 2, 11, 65537, 2, 12, 65537, 2, 13, 65537, 2, 14, 65537, 3, 65550, 1, 1, 131086, 1, 1, 196622, 1, 1, 262158, 1, 1, 327694, 1, 1, 393230, 1, 1, 458766, 1, 1, 524302, 65537, 4, 589838, 65537, 4, 589837, 65537, 0, 589836, 65537, 0, 589835, 65537, 0, 589834, 65537, 0, 589833, 65537, 0, 589832, 65537, 0, 589831, 65537, 0, 589830, 65537, 0, 589829, 65537, 0, 589828, 65537, 0, 589827, 65537, 0, 589826, 65537, 0, 589825, 65537, 0, 589824, 1, 4, 524288, 131073, 1, 458752, 1, 4, 393216, 131073, 1, 327680, 1, 4, 262144, 1, 4, 196608, 131073, 1, 131072, 1, 4, 65536, 1, 4, 65537, 196609, 0, 65538, 262145, 0, 65539, 262145, 0, 65540, 262145, 0, 65541, 262145, 0, 65542, 262145, 0, 65543, 262145, 0, 65544, 262145, 0, 65545, 262145, 0, 65546, 262145, 0, 65547, 262145, 0, 65548, 262145, 0, 65549, 327681, 0, 131085, 327681, 1, 131084, 196609, 3, 196620, 131073, 4, 196619, 131073, 3, 196618, 262145, 1, 131081, 196609, 3, 131080, 262145, 1, 131079, 196609, 3, 131078, 262145, 1, 131077, 131073, 3, 131076, 196609, 4, 131075, 131073, 4, 131074, 262145, 1, 131073, 196609, 1, 131082, 131073, 3, 131083, 131073, 3, 196617, 131073, 3, 196616, 131073, 4, 196615, 262145, 1, 196614, 196609, 4, 196613, 131073, 3, 196612, 131073, 3, 196611, 262145, 1, 196610, 262145, 1, 196609, 196609, 1, 196621, 327681, 1, 262157, 327681, 1, 262156, 131073, 4, 327692, 196609, 3, 393228, 131073, 4, 458764, 196609, 3, 524300, 262145, 2, 524301, 327681, 2, 458765, 327681, 1, 393229, 327681, 1, 327693, 327681, 1, 262155, 131073, 4, 327691, 196609, 4, 393227, 131073, 3, 458763, 131073, 4, 524299, 262145, 2, 524298, 262145, 2, 524297, 262145, 2, 524296, 262145, 2, 524295, 262145, 2, 524294, 262145, 2, 524293, 262145, 2, 524292, 262145, 2, 524291, 262145, 2, 524290, 262145, 2, 524289, 196609, 2, 458753, 196609, 1, 393217, 196609, 1, 327681, 196609, 1, 262145, 196609, 1, 262146, 131073, 3, 262147, 196609, 3, 262148, 131073, 4, 262149, 196609, 3, 262150, 131073, 4, 262151, 131073, 4, 262152, 262145, 1, 262153, 131073, 3, 262154, 196609, 3, 327690, 131073, 4, 327689, 131073, 3, 327688, 131073, 4, 327687, 196609, 4, 327686, 131073, 4, 327685, 131073, 3, 327684, 131073, 4, 327683, 131073, 3, 327682, 196609, 3, 393218, 196609, 3, 393219, 196609, 3, 393220, 196609, 3, 393221, 131073, 4, 393222, 262145, 1, 393223, 131073, 4, 393224, 131073, 4, 393225, 131073, 4, 393226, 131073, 3, 458762, 131073, 3, 458761, 196609, 3, 458760, 131073, 3, 458759, 131073, 4, 458758, 131073, 3, 458757, 196609, 4, 458756, 131073, 4, 458755, 131073, 3, 458754, 196609, 3)
+layer_1/name = "objs"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(262146, 327681, 4, 196612, 327681, 4, 196618, 327681, 4, 262156, 327681, 4, 393221, 327681, 4, 393225, 327681, 4, 524295, 327681, 4)
+
+[node name="CenterContainer" type="BoxContainer" parent="."]
+offset_left = 416.0
+offset_top = 128.0
+offset_right = 544.0
+offset_bottom = 160.0
+alignment = 1
+vertical = true
+
+[node name="Button" type="Button" parent="CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_2h051")
+theme_override_styles/hover = ExtResource("2_2h051")
+theme_override_styles/pressed = ExtResource("2_2h051")
+text = "开始游戏"
+icon = ExtResource("2_oxdgn")
+expand_icon = true
+
+[node name="Objs" type="Node2D" parent="."]
+
+[node name="Candle" parent="Objs" instance=ExtResource("4_0wwo8")]
+position = Vector2(288, 176)
+
+[node name="RedBottle" parent="Objs" instance=ExtResource("5_2egps")]
+position = Vector2(608, 368)
+
+[node name="GreenBottle" parent="Objs" instance=ExtResource("6_jhvm0")]
+position = Vector2(592, 368)
+
+[node name="Cucumber" parent="Objs" instance=ExtResource("7_anqbg")]
+position = Vector2(160, 216)
+
+[node name="Table" parent="Objs" instance=ExtResource("8_x47mv")]
+
+[node name="Chair" parent="Objs" instance=ExtResource("9_i3778")]
+position = Vector2(176, 544)
+
+[node name="BaldPirate" parent="Objs" instance=ExtResource("10_k64gt")]
+position = Vector2(800, 216)
+
+[node name="EnemyCaptain" parent="Objs" instance=ExtResource("11_eho3x")]
+position = Vector2(344, 344)
+
+[node name="Player" parent="Objs" instance=ExtResource("12_p178o")]
+position = Vector2(664, 163)
+stay = true
+
+[node name="BigChain" parent="Objs" instance=ExtResource("13_4c8fx")]
+position = Vector2(880, 112)
+
+[node name="SmallChain" parent="Objs" instance=ExtResource("14_e0gyp")]
+position = Vector2(688, 224)
+
+[node name="Windows" parent="Objs" instance=ExtResource("15_43r7o")]
+position = Vector2(800, 96)
+
+[node name="Barrel" parent="Objs" instance=ExtResource("16_666hr")]
+position = Vector2(864, 552)
+
+[node name="Candle2" parent="Objs" instance=ExtResource("4_0wwo8")]
+position = Vector2(800, 432)
+
+[node name="Windows2" parent="Objs" instance=ExtResource("15_43r7o")]
+position = Vector2(160, 96)
+
+[node name="Barrel2" parent="Objs" instance=ExtResource("16_666hr")]
+position = Vector2(864, 504)
+
+[node name="Barrel3" parent="Objs" instance=ExtResource("16_666hr")]
+position = Vector2(808, 552)
+
+[connection signal="pressed" from="CenterContainer/Button" to="." method="_on_button_pressed"]

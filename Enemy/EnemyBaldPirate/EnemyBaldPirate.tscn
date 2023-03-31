@@ -12,6 +12,22 @@
 shader = ExtResource("2_nipvp")
 shader_parameter/active = false
 
+[sub_resource type="Animation" id="Animation_qg82a"]
+resource_name = "Death"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaldPirate/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 87]
+}
+
 [sub_resource type="Animation" id="Animation_t42am"]
 resource_name = "Hit"
 length = 0.55
@@ -100,22 +116,6 @@ tracks/0/keys = {
 "values": [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
 }
 
-[sub_resource type="Animation" id="Animation_qg82a"]
-resource_name = "Death"
-length = 1.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BaldPirate/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 87]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c0nwe"]
 _data = {
 "Death": SubResource("Animation_qg82a"),
@@ -187,7 +187,7 @@ scale = Vector2(-1, 1)
 texture = ExtResource("3_kfw7l")
 hframes = 4
 vframes = 22
-frame = 78
+frame = 32
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
