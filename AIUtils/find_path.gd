@@ -124,7 +124,17 @@ func newA(point:Vector2,parent,gn:int,hn:int):
 	instance.hn = hn
 	instance.fn = gn + hn
 	return instance
-
+	
+	
+func can_walk_on_x(point:Vector2,d_x:int,step:int):
+	var cur = point.x
+	var max_x = MapContext.get_obj("TILEMAP").get_used_rect().size.x
+	while cur > 0 and cur < max_x:
+		if tileArr[cur][point.y] == 0 or tileArr[cur][point.y] == 2:
+			step -= 1
+		cur += d_x
+	return step<=0
+	
 class A:
 	var point:Vector2 = Vector2.ZERO
 	var parent = null

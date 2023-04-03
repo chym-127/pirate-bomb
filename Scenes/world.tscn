@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnosf6ysgeolr"]
+[gd_scene load_steps=16 format=3 uid="uid://cnosf6ysgeolr"]
 
 [ext_resource type="Script" path="res://Scenes/levels_init.gd" id="1_2l251"]
 [ext_resource type="PackedScene" uid="uid://b2ex68ts3llna" path="res://Player/player.tscn" id="1_px2ex"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dxb474fe2cdla" path="res://Objects/big_chain.tscn" id="9_te834"]
 [ext_resource type="PackedScene" uid="uid://dlx6mkm2in5w8" path="res://Objects/small_chain.tscn" id="10_a751n"]
 [ext_resource type="PackedScene" uid="uid://jrc1t6b8jqwl" path="res://Enemy/Enemy-Cucumber/cucumber.tscn" id="11_0gdit"]
+[ext_resource type="PackedScene" uid="uid://b2mhe268ppw11" path="res://Enemy/enemy_captain.tscn" id="15_f4i1f"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_2l251")
@@ -100,6 +101,9 @@ position = Vector2(96, 544)
 
 [node name="Player" parent="." instance=ExtResource("1_px2ex")]
 position = Vector2(408, 480)
+
+[node name="EnemyCaptain" parent="." instance=ExtResource("15_f4i1f")]
+position = Vector2(828, 529)
 
 [editable path="Objs/Table"]
 [editable path="Objs/Table/ObjHurtBox"]

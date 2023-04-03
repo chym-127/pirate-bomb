@@ -40,7 +40,7 @@ func _physics_process(delta):
 	if state != HIT:
 		if can_see_player:
 			state = SEEK_PLAYER
-		if can_see_bomb:
+		if can_see_bomb and can_seek_bomb():
 			state = SEEK_BOMB
 		if not can_see_player and not can_see_bomb:
 			state = IDLE
@@ -61,9 +61,9 @@ func _physics_process(delta):
 			
 	if state == HIT:
 		velocity = Vector2.ZERO
-		if MapContext.get_obj("PLAYER"):
-			var d = global_position.direction_to(MapContext.get_obj("PLAYER").global_position)
-			change_direction(d.x)
+#		if MapContext.get_obj("PLAYER"):
+#			var d = global_position.direction_to(MapContext.get_obj("PLAYER").global_position)
+#			d_v.x = d_v.x if d.x > 0 else -1*d_v.x
 		actionAnimation.play("Hit")
 		
 	change_direction(d_v.x)
@@ -72,7 +72,15 @@ func _physics_process(delta):
 func death():
 	state = DEATH
 	actionAnimation.play("Death")
-
+	
+	
+func can_seek_bomb():
+	var d_v = global_position.direction_to(bomb.global_position)
+	var point = MapContext.get_obj("TILEMAP").local_to_map(bomb.global_position)
+	if FindPath.can_walk_on_x(point,1 if d_v.x > 0 else -1,2):
+		return true
+	return false
+	
 func seek_bomb_state():
 	var startPoint = MapContext.get_obj("TILEMAP").local_to_map(global_position)
 	var endPoint = MapContext.get_obj("TILEMAP").local_to_map(bomb.global_position)

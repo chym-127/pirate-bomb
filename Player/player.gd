@@ -28,6 +28,7 @@ var CD = 1.6
 var state = RUN
 var is_jumping = false
 var can_attack = true
+var attack_pressed_count = 0
 
 var recentDirection = 0
 
@@ -49,9 +50,10 @@ func _physics_process(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		state = JUMP
+	
 	if Input.is_action_just_pressed("attack"):
-		if state != HURTING:
-			attack()
+		attack()
+		
 	match state:
 		JUMP:
 			jump_state(direction)

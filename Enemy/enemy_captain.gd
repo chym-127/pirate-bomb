@@ -86,10 +86,9 @@ func seek_bomb_state():
 		var endPoint = MapContext.get_obj("TILEMAP").local_to_map(bomb.global_position)
 		if startPoint.y == endPoint.y and abs(endPoint.x-startPoint.x)<4:
 			var d = bomb.global_position.direction_to(global_position)
-			if d.x > 0:
-				d.x = 1
-			else:
-				d.x = -1
+			d.x = 1 if d.x>0 else -1
+			if not FindPath.can_walk_on_x(startPoint,d.x,2):
+				d.x = 1 if d.x==-1 else -1
 			state = ESCAPE
 			d_v = Vector2(d.x,0)
 		else:
